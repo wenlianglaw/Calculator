@@ -2,6 +2,7 @@
 
 
 
+bool b;
 int main() {
 	return 0;
 }
