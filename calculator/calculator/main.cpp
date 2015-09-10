@@ -53,7 +53,7 @@ double F(char *expr, char** s) {
 
 int main() {
 	//char *str = "3*(4+5)*6";	
-	char *str = "((2))*(3+4)*(5-9)";
+	char *str = "1+2*(4+3)";
 	char *pstr = str;
 	double d = E(str,&pstr);
 	printf("%lf\n", d);
