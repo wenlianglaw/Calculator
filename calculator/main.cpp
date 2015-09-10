@@ -5,6 +5,14 @@
 /*
 expr is the expression
 s is the start character's address, *s is the start character
+E -> T +- T | T
+T -> F * / F | F
+F -> (E) | num
+
+LWL
+wenlianglaw@gmail.com
+NYC
+2015-09-09
 */
 double E(char *expr,char** s) {
 	double T(char *expr, char** s);
