@@ -14,17 +14,14 @@ wenlianglaw@gmail.com
 NYC
 2015-09-09
 */
-double E(char *expr,char** s) {
+double E(char *expr, char** s) {
 	double T(char *expr, char** s);
 	double ret = 0.0F;
 	if (!**s) return ret;
 	ret = T(expr, s);
-	while (**s) {
-		char op = *(*s)++;
-		if (op == '+') ret += T(expr, s);
-		else if (op == '-') ret -= T(expr, s);
-		else if (op == ')') break;
-		else (*s)--;
+	if (**s == '+' || **s == '*') {
+		(*s)++;
+		ret += *(*s-1) == '+'? E(expr, s):-E(expr, s);
 	}
 	return ret;
 }
@@ -32,31 +29,28 @@ double E(char *expr,char** s) {
 double T(char *expr, char** s) {
 	double F(char *expr, char** s);
 	double ret;
-	if (!**s) ret;
 	ret = F(expr, s);
-	while ( **s == '*' || **s == '/' ) {
-		char op = *(*s)++;		
-		if (op == '*') ret *= F(expr, s);
-		else if (op == '/') ret /= F(expr, s);
-		else (*s)--;
+	if (**s == '*' || **s == '/') {
+		(*s)++;
+		ret *= *(*s - 1) == '*'?T(expr, s):1 / T(expr, s);
 	}
 	return ret;
 }
 
 double F(char *expr, char** s) {
 	if (!**s) return 1.0F;
-	char ch = **s;
 	double ret = 1.0F;
 	if (**s == '(') {
 		(*s)++;
 		ret = E(expr, s);
 	} 
-	else if (**s == ')');// do nothing
-	else if (**s >= '0' && **s <= '9' || **s =='+' || **s == '-') {
+	if (**s == ')') (*s)++;// do nothing
+	else if (**s >= '0' && **s <= '9' || **s == '+' || **s == '-') {
 		ret = strtod(*s, s);
 	}
 	return ret;
 }
+
 
 #ifdef RECURSIVE_VERSION
 
