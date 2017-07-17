@@ -58,7 +58,7 @@ double F(char *expr, char** s) {
 	return ret;
 }
 
-#if 0
+#ifdef recursive
 double E(char *expr, char** s) {
 	double T(char *expr, char** s);
 	double ret = 0.0F;
