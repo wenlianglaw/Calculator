@@ -80,9 +80,15 @@ double T(char *expr, char** s) {
 	double F(char *expr, char** s);
 	double ret;
 	ret = F(expr, s);
-	if (**s == '*' || **s == '/') {
-		(*s)++;
-		ret *= *(*s - 1) == '*' ? F(expr, s) : 1 / F(expr, s);
+	while (*s) {
+		if (**s == '*' || **s == '/') {
+			(*s)++;
+			ret *= *(*s - 1) == '*' ? F(expr, s) : 1 / F(expr, s);
+		}
+		else if (**s == '(')
+			ret = F(expr, s);
+		else break;
+
 	}
 	return ret;
 }
